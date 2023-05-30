@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Collections.Generic;
 
@@ -53,15 +53,21 @@ namespace password_checker
             {
                 int mid = (left + right) / 2;
                 string[] midvalue = userPasswordsArray[mid].Split(":");
-                string usernameFromData = midvalue[0];
-                string passwordFromData = midvalue[1];
-                if (usernameFromData == username && passwordFromData == password)
+                if (midvalue[0] == username)
                 {
-                    Console.WriteLine("Match found!");
                     found = true;
+                    if (midvalue[1] == password)
+                    {
+                        Console.WriteLine("Access Granted!");
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Wrong password.");
+                    }
                     break;
                 }
-                else if (string.Compare(usernameFromData, username) < 0)
+                else if (string.Compare(midvalue[0], username) == 1)
                 {
                     left = mid + 1;
                 }
@@ -74,7 +80,7 @@ namespace password_checker
             // invalid
             if (!found)
             {
-                Console.WriteLine("Invalid username or password.");
+                Console.WriteLine("Invalid username.");
             }
         }
     }
